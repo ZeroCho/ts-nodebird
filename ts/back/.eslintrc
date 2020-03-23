@@ -1,0 +1,20 @@
+{
+  "extends": "airbnb-base",
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "plugins": ["@typescript-eslint"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
+      }
+    }
+  },
+  "rules": {
+    "import/extensions": "off",
+    "no-unused-vars": "off",
+    "max-len": "off"
+  }
+}
