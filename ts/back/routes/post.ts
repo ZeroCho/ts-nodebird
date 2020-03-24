@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as AWS from 'aws-sdk';
 import * as multer from 'multer';
 import * as multerS3 from 'multer-s3';
+import * as Bluebird from 'bluebird';
 import Comment from '../models/comment';
 import Hashtag from '../models/hashtag';
 import Image from '../models/image';
@@ -38,7 +39,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
       UserId: req.user!.id,
     });
     if (hashtags) {
-      const promises = hashtags.map<[Hashtag, boolean]>((tag: string) => Hashtag.findOrCreate({
+      const promises = hashtags.map<Bluebird<[Hashtag, boolean]>>((tag: string) => Hashtag.findOrCreate({
         where: { name: tag.slice(1).toLowerCase() },
       }));
       const result = await Promise.all(promises);
@@ -47,7 +48,8 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
     }
     if (req.body.image) { // 이미지 주소를 여러개 올리면 image: [주소1, 주소2]
       if (Array.isArray(req.body.image)) {
-        const images = await Promise.all(req.body.image.map((image: string) => Image.create({ src: image })));
+        const promises: Bluebird<Image>[] = req.body.image.map((image: string) => Image.create({ src: image }));
+        const images = await Promise.all(promises);
         await newPost.addImages(images);
       } else { // 이미지를 하나만 올리면 image: 주소1
         const image = await Image.create({ src: req.body.image });

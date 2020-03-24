@@ -15,6 +15,7 @@
   "rules": {
     "import/extensions": "off",
     "no-unused-vars": "off",
-    "max-len": "off"
+    "max-len": "off",
+    "linebreak-style": "off"
   }
 }

@@ -40,6 +40,11 @@ router.post('/', async (req, res, next) => { // POST /api/user 회원가입
   }
 });
 
+interface IUser extends Partial<User> {
+  PostCount: number;
+  FollowingCount: number;
+  FollowerCount: number;
+}
 router.get('/:id', async (req, res, next) => { // 남의 정보 가져오는 것 ex) /api/user/123
   try {
     const user = await User.findOne({
@@ -59,14 +64,15 @@ router.get('/:id', async (req, res, next) => { // 남의 정보 가져오는 것
       }],
       attributes: ['id', 'nickname'],
     });
-    const jsonUser = user.toJSON();
-    jsonUser.Posts = jsonUser.Posts ? jsonUser.Posts.length : 0;
-    jsonUser.Followings = jsonUser.Followings ? jsonUser.Followings.length : 0;
-    jsonUser.Followers = jsonUser.Followers ? jsonUser.Followers.length : 0;
-    res.json(jsonUser);
+    if (!user) return res.status(404).send('no user');
+    const jsonUser = user.toJSON() as IUser;
+    jsonUser.PostCount = jsonUser.Posts ? jsonUser.Posts.length : 0;
+    jsonUser.FollowingCount = jsonUser.Followings ? jsonUser.Followings.length : 0;
+    jsonUser.FollowerCount = jsonUser.Followers ? jsonUser.Followers.length : 0;
+    return res.json(jsonUser);
   } catch (e) {
     console.error(e);
-    next(e);
+    return next(e);
   }
 });
 
@@ -126,15 +132,16 @@ router.get('/:id/followings', isLoggedIn, async (req, res, next) => { // /api/us
     const user = await User.findOne({
       where: { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0 },
     });
+    if (!user) return res.status(404).send('no user');
     const followers = await user.getFollowings({
       attributes: ['id', 'nickname'],
       limit: parseInt(req.query.limit, 10),
       offset: parseInt(req.query.offset, 10),
     });
-    res.json(followers);
+    return res.json(followers);
   } catch (e) {
     console.error(e);
-    next(e);
+    return next(e);
   }
 });
 
@@ -143,15 +150,16 @@ router.get('/:id/followers', isLoggedIn, async (req, res, next) => { // /api/use
     const user = await User.findOne({
       where: { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0 },
     }); // req.params.id가 문자열 '0'
+    if (!user) return res.status(404).send('no user');
     const followers = await user.getFollowers({
       attributes: ['id', 'nickname'],
       limit: parseInt(req.query.limit, 10),
       offset: parseInt(req.query.offset, 10),
     });
-    res.json(followers);
+    return res.json(followers);
   } catch (e) {
     console.error(e);
-    next(e);
+    return next(e);
   }
 });
 
@@ -160,7 +168,7 @@ router.delete('/:id/follower', isLoggedIn, async (req, res, next) => {
     const me = await User.findOne({
       where: { id: req.user!.id },
     });
-    await me.removeFollower(req.params.id);
+    await me!.removeFollower(parseInt(req.params.id, 10));
     res.send(req.params.id);
   } catch (e) {
     console.error(e);
@@ -173,7 +181,7 @@ router.post('/:id/follow', isLoggedIn, async (req, res, next) => {
     const me = await User.findOne({
       where: { id: req.user!.id },
     });
-    await me.addFollowing(req.params.id);
+    await me!.addFollowing(parseInt(req.params.id, 10));
     res.send(req.params.id);
   } catch (e) {
     console.error(e);
@@ -186,7 +194,7 @@ router.delete('/:id/follow', isLoggedIn, async (req, res, next) => {
     const me = await User.findOne({
       where: { id: req.user!.id },
     });
-    await me.removeFollowing(req.params.id);
+    await me!.removeFollowing(parseInt(req.params.id, 10));
     res.send(req.params.id);
   } catch (e) {
     console.error(e);

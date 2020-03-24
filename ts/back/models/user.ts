@@ -1,4 +1,11 @@
-import { DataTypes, Model } from 'sequelize';
+import {
+  BelongsToManyAddAssociationMixin,
+  BelongsToManyGetAssociationsMixin,
+  BelongsToManyRemoveAssociationMixin,
+  DataTypes,
+  Model,
+} from 'sequelize';
+import Post from './post';
 import { sequelize } from './sequelize';
 import { dbType } from './index';
 
@@ -10,6 +17,22 @@ class User extends Model {
   public userId!: string;
 
   public password!: string;
+
+  public addFollowing!: BelongsToManyAddAssociationMixin<User, number>;
+
+  public getFollowings!: BelongsToManyGetAssociationsMixin<User>;
+
+  public getFollowers!: BelongsToManyGetAssociationsMixin<User>;
+
+  public removeFollower!: BelongsToManyRemoveAssociationMixin<User, number>;
+
+  public removeFollowing!: BelongsToManyRemoveAssociationMixin<User, number>;
+
+  public readonly Posts?: Post[];
+
+  public readonly Followings?: User[];
+
+  public readonly Followers?: User[];
 }
 
 User.init({
