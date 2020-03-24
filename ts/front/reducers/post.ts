@@ -10,7 +10,9 @@ export const initialState = {
   addCommentErrorReason: '',
   commentAdded: false,
   singlePost: null,
+  hasMorePost: false,
 };
+export type IPostReducerState = typeof initialState;
 
 export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
 export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
@@ -83,7 +85,7 @@ export default (state = initialState, action) => produce(state, (draft) => {
     }
     case ADD_POST_REQUEST: {
       draft.isAddingPost = true;
-      draft.addingPostErrorReason = '';
+      draft.addPostErrorReason = '';
       draft.postAdded = false;
       break;
     }
@@ -114,7 +116,7 @@ export default (state = initialState, action) => produce(state, (draft) => {
     }
     case ADD_COMMENT_FAILURE: {
       draft.isAddingComment = false;
-      draft.addingPostErrorReason = action.error;
+      draft.addPostErrorReason = action.error;
       break;
     }
     case LOAD_COMMENTS_SUCCESS: {

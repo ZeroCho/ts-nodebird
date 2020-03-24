@@ -1,7 +1,10 @@
+import { NextPage } from 'next';
+import { ErrorProps } from 'next/error';
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const MyError = ({ statusCode }) => (
+interface Props extends ErrorProps {}
+
+const MyError: NextPage<Props> = ({ statusCode }) => (
   <div>
     <h1>
       {statusCode}
@@ -10,10 +13,6 @@ const MyError = ({ statusCode }) => (
     </h1>
   </div>
 );
-
-MyError.propTypes = {
-  statusCode: PropTypes.number,
-};
 
 MyError.defaultProps = {
   statusCode: 400,

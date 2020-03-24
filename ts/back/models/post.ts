@@ -22,6 +22,8 @@ class Post extends Model {
 
   public RetweetId!: number | null;
 
+  public readonly createdAt!: Date;
+
   public addHashtags!: HasManyAddAssociationsMixin<Hashtag, number>
 
   public addImages!: HasManyAddAssociationsMixin<Image, number>
@@ -35,6 +37,12 @@ class Post extends Model {
   public removeLiker!: BelongsToManyRemoveAssociationMixin<User, number>;
 
   public readonly Retweet?: Post;
+
+  public readonly User?: User;
+
+  public readonly Likers?: User[];
+
+  public readonly Images?: Image[];
 
   public static associations: {
     Retweet: Association<Post, Post>,

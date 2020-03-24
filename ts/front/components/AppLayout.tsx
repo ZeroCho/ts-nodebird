@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Col, Input, Menu, Row } from 'antd';
@@ -7,7 +7,11 @@ import Router from 'next/router';
 import LoginForm from '../containers/LoginForm';
 import UserProfile from '../containers/UserProfile';
 
-const AppLayout = ({ children }) => {
+interface Props {
+  children: ReactElement;
+}
+
+const AppLayout: FC<Props> = ({ children }) => {
   const { me } = useSelector((state) => state.user);
 
   const onSearch = (value) => {
@@ -42,10 +46,6 @@ const AppLayout = ({ children }) => {
       </Row>
     </div>
   );
-};
-
-AppLayout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default AppLayout;

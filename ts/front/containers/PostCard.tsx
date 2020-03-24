@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { FC, memo, useCallback, useState } from 'react';
 import { Avatar, Button, Card, Comment, List, Popover } from 'antd';
 import { MessageOutlined, RetweetOutlined, HeartOutlined, EllipsisOutlined } from '@ant-design/icons';
 import Link from 'next/link';
@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import moment from 'moment';
+import Post from '../../back/models/post';
 import {
   LIKE_POST_REQUEST,
   LOAD_COMMENTS_REQUEST,
@@ -25,7 +26,11 @@ const CardWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-const PostCard = memo(({ post }) => {
+interface Props {
+  post: Post;
+}
+
+const PostCard: FC<Props> = memo(({ post }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false);
   const id = useSelector((state) => state.user.me && state.user.me.id);
   const dispatch = useDispatch();
@@ -44,7 +49,8 @@ const PostCard = memo(({ post }) => {
 
   const onToggleLike = useCallback(() => {
     if (!id) {
-      return alert('로그인이 필요합니다!');
+      alert('로그인이 필요합니다!');
+      return;
     }
     if (liked) { // 좋아요 누른 상태
       dispatch({

@@ -1,10 +1,14 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import PropTypes from 'prop-types';
+import React, { ReactElement } from 'react';
+import Helmet, { HelmetData } from 'react-helmet';
 import Document, { Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
-class MyDocument extends Document {
+interface Props {
+  helmet: HelmetData,
+  styles: ReactElement,
+}
+
+class MyDocument extends Document<Props> {
   static async getInitialProps(context) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = context.renderPage;
@@ -35,7 +39,7 @@ class MyDocument extends Document {
     const bodyAttrs = bodyAttributes.toComponent();
 
     return (
-      <html {...htmlAttrs}>
+      <html {...htmlAttrs} lang="ko">
         <head>
           {this.props.styles}
           {Object.values(helmet).map((el) => el.toComponent())}
@@ -50,10 +54,5 @@ class MyDocument extends Document {
     );
   }
 }
-
-MyDocument.propTypes = {
-  helmet: PropTypes.object.isRequired,
-  styles: PropTypes.object.isRequired,
-};
 
 export default MyDocument;

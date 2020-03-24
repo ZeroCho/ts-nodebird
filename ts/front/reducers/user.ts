@@ -16,6 +16,7 @@ export const initialState = {
   hasMoreFollower: false,
   hasMoreFollowing: false,
 };
+export type IUserReducerState = typeof initialState;
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
@@ -112,7 +113,7 @@ export default (state = initialState, action) => produce(state, (draft) => {
         draft.me = action.data;
         break;
       }
-      draft.useInfo = action.data;
+      draft.userInfo = action.data;
       break;
     }
     case LOAD_USER_FAILURE: {

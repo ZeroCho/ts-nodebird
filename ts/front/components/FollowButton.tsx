@@ -1,9 +1,15 @@
-import React, { memo } from 'react';
+import React, { FC, memo } from 'react';
 import { Button } from 'antd';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import Post from '../../back/models/post';
 
-const FollowButton = memo(({ post, onUnfollow, onFollow }) => {
+interface Props {
+  post: Post;
+  onFollow: (id: number) => () => void;
+  onUnfollow: (id: number) => () => void;
+}
+
+const FollowButton: FC<Props> = memo(({ post, onUnfollow, onFollow }) => {
   const { me } = useSelector((state) => state.user);
   return !me || post.User.id === me.id
     ? null
@@ -11,11 +17,5 @@ const FollowButton = memo(({ post, onUnfollow, onFollow }) => {
       ? <Button onClick={onUnfollow(post.User.id)}>언팔로우</Button>
       : <Button onClick={onFollow(post.User.id)}>팔로우</Button>;
 });
-
-FollowButton.propTypes = {
-  post: PropTypes.object.isRequired,
-  onUnfollow: PropTypes.func.isRequired,
-  onFollow: PropTypes.func.isRequired,
-};
 
 export default FollowButton;

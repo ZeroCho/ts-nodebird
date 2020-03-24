@@ -1,9 +1,16 @@
 import { Button, Card, List } from 'antd';
 import { StopOutlined } from '@ant-design/icons';
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, memo } from 'react';
+import User from '../../back/models/user';
 
-const FollowList = memo(({ header, hasMore, onClickMore, data, onClickStop }) => (
+interface Props {
+  header: string,
+  hasMore: boolean,
+  onClickMore: () => void,
+  data: User[],
+  onClickStop: (id: number) => () => void,
+}
+const FollowList: FC<Props> = memo(({ header, hasMore, onClickMore, data, onClickStop }) => (
   <List
     style={{ marginBottom: '20px' }}
     grid={{ gutter: 4, xs: 2, md: 3 }}
@@ -21,13 +28,5 @@ const FollowList = memo(({ header, hasMore, onClickMore, data, onClickStop }) =>
     )}
   />
 ));
-
-FollowList.propTypes = {
-  header: PropTypes.string.isRequired,
-  hasMore: PropTypes.bool.isRequired,
-  onClickMore: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
-  onClickStop: PropTypes.func.isRequired,
-};
 
 export default FollowList;
