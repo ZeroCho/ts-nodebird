@@ -3,8 +3,9 @@ import { Button, Form, Input } from 'antd';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useInput } from '../pages/signup'; // TODO: util 폴더로 옮기기
+
 import { LOG_IN_REQUEST } from '../reducers/user';
+import useInput from '../utils/useInput';
 
 const LoginError = styled.div`
   color: red;
@@ -28,7 +29,7 @@ const LoginForm = () => {
   }, [id, password]);
 
   return (
-    <Form onSubmit={onSubmitForm} style={{ padding: '10px' }}>
+    <Form onFinish={onSubmitForm} style={{ padding: '10px' }}>
       <div>
         <label htmlFor="user-id">아이디</label>
         <br />

@@ -1,10 +1,14 @@
 import { Button, Form, Input } from 'antd';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import Post from '../../back/models/post';
 import { ADD_COMMENT_REQUEST } from '../reducers/post';
 
-const CommentForm = ({ post }) => {
+interface Props {
+  post: Post;
+}
+
+const CommentForm: FC<Props> = ({ post }) => {
   const [commentText, setCommentText] = useState('');
   const { commentAdded, isAddingComment } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
@@ -33,17 +37,13 @@ const CommentForm = ({ post }) => {
   }, []);
 
   return (
-    <Form onSubmit={onSubmitComment}>
+    <Form onFinish={onSubmitComment}>
       <Form.Item>
         <Input.TextArea rows={4} value={commentText} onChange={onChangeCommentText} />
       </Form.Item>
       <Button type="primary" htmlType="submit" loading={isAddingComment}>삐약</Button>
     </Form>
   );
-};
-
-CommentForm.propTypes = {
-  post: PropTypes.object.isRequired,
 };
 
 export default CommentForm;

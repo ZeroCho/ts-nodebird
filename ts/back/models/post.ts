@@ -44,6 +44,8 @@ class Post extends Model {
 
   public readonly Images?: Image[];
 
+  public readonly Comments?: Comment[];
+
   public static associations: {
     Retweet: Association<Post, Post>,
   }

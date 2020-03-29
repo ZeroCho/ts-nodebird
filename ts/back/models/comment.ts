@@ -1,11 +1,14 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from './sequelize';
 import { dbType } from './index';
+import User from './user';
 
 class Comment extends Model {
   public id!: number;
 
   public content!: string;
+
+  public readonly User?: User;
 }
 
 Comment.init({

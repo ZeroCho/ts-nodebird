@@ -4,18 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 import styled from 'styled-components';
 import { SIGN_UP_REQUEST } from '../reducers/user';
+import useInput from '../utils/useInput';
 
 const SignupError = styled.div`
   color: red;
 `;
-
-export const useInput = (initValue = null) => {
-  const [value, setter] = useState(initValue);
-  const handler = useCallback((e) => {
-    setter(e.target.value);
-  }, []);
-  return [value, handler];
-};
 
 const Signup = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -70,11 +63,11 @@ const Signup = () => {
 
   return (
     <>
-      <Form onSubmit={onSubmit} style={{ padding: 10 }}>
+      <Form onFinish={onSubmit} style={{ padding: 10 }}>
         <div>
           <label htmlFor="user-id">아이디</label>
           <br />
-          <Input name="user-id" value={id} required onChange={onChangeId} />
+          <Input id="user-id" name="user-id" value={id} required onChange={onChangeId} />
         </div>
         <div>
           <label htmlFor="user-nick">닉네임</label>
@@ -84,12 +77,13 @@ const Signup = () => {
         <div>
           <label htmlFor="user-password">비밀번호</label>
           <br />
-          <Input name="user-password" type="password" value={password} required onChange={onChangePassword} />
+          <Input id="user-password" name="user-password" type="password" value={password} required onChange={onChangePassword} />
         </div>
         <div>
           <label htmlFor="user-password-check">비밀번호체크</label>
           <br />
           <Input
+            id="user-password-check"
             name="user-password-check"
             type="password"
             value={passwordCheck}

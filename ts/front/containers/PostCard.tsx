@@ -1,8 +1,7 @@
 import React, { FC, memo, useCallback, useState } from 'react';
 import { Avatar, Button, Card, Comment, List, Popover } from 'antd';
-import { MessageOutlined, RetweetOutlined, HeartOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { HeartTwoTone, MessageOutlined, RetweetOutlined, HeartOutlined, EllipsisOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -102,12 +101,18 @@ const PostCard: FC<Props> = memo(({ post }) => {
         cover={post.Images && post.Images[0] && <PostImages images={post.Images} />}
         actions={[
           <RetweetOutlined key="retweet" onClick={onRetweet} />,
-          <HeartOutlined
-            key="heart"
-            theme={liked ? 'twoTone' : 'outlined'}
-            twoToneColor="#eb2f96"
-            onClick={onToggleLike}
-          />,
+          liked ? (
+            <HeartTwoTone
+              key="heart"
+              twoToneColor="#eb2f96"
+              onClick={onToggleLike}
+            />
+          ) : (
+            <HeartOutlined
+              key="heart"
+              onClick={onToggleLike}
+            />
+          ),
           <MessageOutlined key="message" onClick={onToggleComment} />,
           <Popover
             key="ellipsis"
@@ -191,21 +196,5 @@ const PostCard: FC<Props> = memo(({ post }) => {
     </CardWrapper>
   );
 });
-
-PostCard.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.number,
-    User: PropTypes.object,
-    content: PropTypes.string,
-    img: PropTypes.string,
-    createdAt: PropTypes.string,
-    UserId: PropTypes.number,
-    Comments: PropTypes.array,
-    Retweet: PropTypes.object,
-    RetweetId: PropTypes.number,
-    Images: PropTypes.array,
-    Likers: PropTypes.array,
-  }).isRequired,
-};
 
 export default PostCard;

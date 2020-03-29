@@ -2,16 +2,19 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { LOAD_POST_REQUEST } from '../reducers/post';
-import { backUrl } from '../config/config';
+import { useRouter } from 'next/router';
 
-const Post = ({ id }) => {
+import { LOAD_POST_REQUEST } from '../../reducers/post';
+import { backUrl } from '../../config/config';
+
+const Post = () => {
+  const router = useRouter();
+  const { id } = router.query;
   const { singlePost } = useSelector((state) => state.post);
   return (
     <>
       <Helmet
         title={`${singlePost.User.nickname}님의 글`}
-        description={singlePost.content}
         meta={[{
           name: 'description', content: singlePost.content,
         }, {
@@ -19,15 +22,15 @@ const Post = ({ id }) => {
         }, {
           property: 'og:description', content: singlePost.content,
         }, {
-          property: 'og:image', content: singlePost.Images[0] ? singlePost.Images[0].src : 'https://nodebird.com/favicon.ico',
+          property: 'og:image', content: singlePost.Images[0] ? `http://localhost:3065/${singlePost.Images[0].src}` : 'http://localhost:3065/favicon.ico',
         }, {
-          property: 'og:url', content: `https://nodebird.com/post/${id}`,
+          property: 'og:url', content: `http://localhost:3065/post/${id}`,
         }]}
       />
-      <div itemScope="content">{singlePost.content}</div>
-      <div itemScope="author">{singlePost.User.nickname}</div>
+      <div>{singlePost.content}</div>
+      <div>{singlePost.User.nickname}</div>
       <div>
-        {singlePost.Images[0] && <img src={singlePost.Images[0].src} alt={singlePost.content.slice(20)} />}
+        {singlePost.Images[0] && <img src={`http://localhost:3065/${singlePost.Images[0].src}`} alt={singlePost.content.slice(20)} />}
       </div>
     </>
   );
@@ -39,10 +42,6 @@ Post.getInitialProps = async (context) => {
     data: context.query.id,
   });
   return { id: parseInt(context.query.id, 10) };
-};
-
-Post.propTypes = {
-  id: PropTypes.number.isRequired,
 };
 
 export default Post;
