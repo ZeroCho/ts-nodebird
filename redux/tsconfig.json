@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "outDir": ".",
+    "strict": true,
+    "declaration": true
+  }
+}

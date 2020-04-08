@@ -7,9 +7,7 @@ export default () => {
   passport.use('local', new Strategy({
     usernameField: 'userId',
     passwordField: 'password',
-    session: false,
-    passReqToCallback: true,
-  }, async (req, userId, password, done) => {
+  }, async (userId, password, done) => {
     try {
       const user = await User.findOne({ where: { userId } });
       if (!user) {
