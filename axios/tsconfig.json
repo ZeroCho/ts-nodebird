@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "outDir": ".",
     "strict": true,
     "declaration": true,
     "lib": ["dom", "es2020"],
-    "jsx": "react",
-    "moduleResolution": "node"
+    "target": "esnext",
+    "module": "esnext"
   }
 }

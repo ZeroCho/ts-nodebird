@@ -1,0 +1,7 @@
+<script src="./index.js"></script>
+<script>
+  axios.defaults.baseUrl = 'https://jsonplaceholder.typicode.com/todos/1';
+  axios.get('/').then((result) => {
+    console.log(result);
+  });
+</script>

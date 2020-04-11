@@ -1,5 +1,9 @@
 {
   "name": "redux",
   "main": "index.js",
-  "types": "./index.d.ts"
+  "types": "./index.d.ts",
+  "dependencies": {
+    "@types/node": "^13.11.1",
+    "typescript": "^3.8.3"
+  }
 }
