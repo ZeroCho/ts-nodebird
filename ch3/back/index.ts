@@ -9,6 +9,7 @@ import passport from 'passport';
 import hpp from 'hpp';
 import helmet from 'helmet';
 
+import passportConfig from './passport';
 import { sequelize } from './models';
 import userRouter from './routes/user';
 import postRouter from './routes/post'
@@ -20,6 +21,7 @@ const app = express();
 const prod: boolean = process.env.NODE_ENV === 'production';
 
 app.set('port', prod ? process.env.PORT : 3065);
+passportConfig();
 sequelize.sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');

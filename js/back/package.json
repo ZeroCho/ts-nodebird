@@ -10,9 +10,9 @@
   "author": "ZeroCho",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.685.0",
-    "axios": "^0.19.2",
-    "bcrypt": "^4.0.1",
+    "aws-sdk": "^2.786.0",
+    "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
