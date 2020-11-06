@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
     "build": "webpack",
     "prepublish": "npm run build"
   },
@@ -12,17 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.9.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@types/node": "^13.13.2",
     "awesome-typescript-loader": "^5.2.1",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "core-js": "^3.6.5",
     "typescript": "^3.8.3",
-    "webpack": "^4.42.1"
-  },
-  "types": "./index.d.ts",
-  "devDependencies": {
-    "babel-plugin-add-module-exports": "^1.0.2",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
-  }
+  },
+  "types": "./index.d.ts"
 }

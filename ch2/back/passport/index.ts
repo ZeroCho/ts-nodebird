@@ -1,4 +1,5 @@
-import * as passport from 'passport';
+import passport from 'passport';
+
 import User from '../models/user';
 import local from './local';
 

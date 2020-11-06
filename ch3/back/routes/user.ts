@@ -1,6 +1,7 @@
-import * as express from 'express';
-import * as bcrypt from 'bcrypt';
-import * as passport from 'passport';
+import express from 'express';
+import { Request } from 'express';
+import bcrypt from 'bcrypt';
+import passport from 'passport';
 
 import { isLoggedIn, isNotLoggedIn } from './middleware';
 import User from '../models/user';
@@ -11,8 +12,7 @@ const router = express.Router();
 
 router.get('/', isLoggedIn, (req, res) => {
     const user = req.user!.toJSON() as User;
-    delete user.password;
-    return res.json(user);
+    return res.json({ ...user, password: null });
 });
 
 router.post('/', async (req, res, next) => {
@@ -125,7 +125,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.get('/:id/followings', isLoggedIn, async (req, res, next) => {
+router.get<any, any, any, { limit: string, offset: string }>('/:id/followings', isLoggedIn, async (req: Request<any, any, any, { limit: string, offset: string }>, res, next) => {
     try {
         const user = await User.findOne({
             where: { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0 },
@@ -143,7 +143,7 @@ router.get('/:id/followings', isLoggedIn, async (req, res, next) => {
     }
 });
 
-router.get('/:id/followers', isLoggedIn, async (req, res, next) => {
+router.get<any, any, any, { limit: string, offset: string }>('/:id/followers', isLoggedIn, async (req: Request<any, any, any, { limit: string, offset: string }>, res, next) => {
     try {
         const user = await User.findOne({
             where: { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0 },
@@ -240,4 +240,3 @@ router.patch('/nickname', isLoggedIn, async (req, res, next) => {
   });
 
   export default router;
-  

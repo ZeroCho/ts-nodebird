@@ -1,12 +1,13 @@
-import * as express from 'express';
-import * as morgan from 'morgan';
-import * as cors from 'cors';
-import * as cookieParser from 'cookie-parser';
-import * as expressSession from 'express-session';
-import * as dotenv from 'dotenv';
-import * as passport from 'passport';
-import * as hpp from 'hpp';
-import * as helmet from 'helmet';
+import express from 'express';
+import { RequestHandler, ErrorRequestHandler, Request, Response, NextFunction } from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import expressSession from 'express-session';
+import dotenv from 'dotenv';
+import passport from 'passport';
+import hpp from 'hpp';
+import helmet from 'helmet';
 
 import { sequelize } from './models';
 import userRouter from './routes/user';
@@ -60,13 +61,19 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/user', userRouter);
+
 app.use('/post', postRouter);
 app.use('/posts', postsRouter);
 app.use('/hashtag', hashtagRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res, next) => {
   res.send('react nodebird 백엔드 정상 동작!');
+});
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+  res.status(500).send('서버 에러 발생! 서버 콘솔을 확인하세요.');
 });
 
 app.listen(app.get('port'), () => {

@@ -16,9 +16,9 @@
   });
 </script>
 <script>
-  console.log(axios);
-  axios.defaults.baseUrl = 'https://jsonplaceholder.typicode.com/todos/1';
-  axios.get('/').then(function(result) {
+  console.log('a');
+  axios.get('/').then(function (result) {
     console.log(result);
+    console.log('b');
   });
 </script>

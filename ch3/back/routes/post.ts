@@ -1,9 +1,9 @@
-import * as AWS from 'aws-sdk';
-import * as BlueBird from 'bluebird';
-import * as express from 'express';
-import * as multer from 'multer';
-import * as multerS3 from 'multer-s3';
-import * as path from 'path';
+import AWS from 'aws-sdk';
+import express from 'express';
+import multer from 'multer';
+import multerS3 from 'multer-s3';
+import path from 'path';
+
 import Comment from '../models/comment';
 import Hashtag from '../models/hashtag';
 import Image from '../models/image';
@@ -47,7 +47,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
     }
     if (req.body.image) {
       if (Array.isArray(req.body.image)) {
-        const promises: BlueBird<Image>[] = req.body.image.map((image: string) => Image.create({ src: image }));
+        const promises: Promise<Image>[] = req.body.image.map((image: string) => Image.create({ src: image }));
         const images = await Promise.all(promises);
         await newPost.addImages(images);
       } else {

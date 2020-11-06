@@ -27,5 +27,8 @@ module.exports = {
     filename: '[name].js',
     library: 'axios',
     libraryTarget: "umd"
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   }
 }

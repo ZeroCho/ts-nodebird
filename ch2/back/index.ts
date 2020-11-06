@@ -1,12 +1,12 @@
-import * as express from 'express';
-import * as morgan from 'morgan';
-import * as cors from 'cors';
-import * as cookieParser from 'cookie-parser';
-import * as expressSession from 'express-session';
-import * as dotenv from 'dotenv';
-import * as passport from 'passport';
-import * as hpp from 'hpp';
-import * as helmet from 'helmet';
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import expressSession from 'express-session';
+import dotenv from 'dotenv';
+import passport from 'passport';
+import hpp from 'hpp';
+import helmet from 'helmet';
 
 import { sequelize } from './models';
 import userRouter from './routes/user';

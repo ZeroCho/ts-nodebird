@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { RequestHandler, ErrorRequestHandler } from 'express';
 import * as morgan from 'morgan';
 import * as cors from 'cors';
 import * as cookieParser from 'cookie-parser';
@@ -65,9 +66,17 @@ app.use('/post', postRouter);
 app.use('/posts', postsRouter);
 app.use('/hashtag', hashtagRouter);
 
-app.get('/', (req, res, next) => {
+const defaultRouter: RequestHandler = (req, res, next) => {
   res.send('react nodebird 백엔드 정상 동작!');
-});
+}
+
+app.get('/', defaultRouter);
+
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.error(err);
+  res.status(500).send('에러 발생. 서버 콘솔을 확인하세요');
+}
+app.use(errorHandler);
 
 app.listen(app.get('port'), () => {
   console.log(`server is running on ${app.get('port')}`);

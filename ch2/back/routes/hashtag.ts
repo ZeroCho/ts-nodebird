@@ -1,14 +1,14 @@
-import * as express from 'express';
-import * as Sequelize from 'sequelize';
+import express from 'express';
+import Sequelize from 'sequelize';
+
 import Hashtag from '../models/hashtag';
 import Image from '../models/image';
-
 import Post from '../models/post';
 import User from '../models/user';
 
 const router = express.Router();
 
-router.get('/:tag', async (req, res, next) => {
+router.get<any, any, any, { lastId: string, limit: string }>('/:tag', async (req, res, next) => {
   try {
     let where = {};
     if (parseInt(req.query.lastId, 10)) {

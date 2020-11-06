@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "lib": ["dom", "es2020"],
+    "target": "es5",
+    "module": "umd"
+  }
+}

@@ -1,6 +1,6 @@
-import * as express from 'express';
-import * as bcrypt from 'bcrypt';
-import * as passport from 'passport';
+import express from 'express';
+import bcrypt from 'bcrypt';
+import passport from 'passport';
 
 import { isLoggedIn, isNotLoggedIn } from './middleware';
 import User from '../models/user';
@@ -125,7 +125,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.get('/:id/followings', isLoggedIn, async (req, res, next) => {
+router.get<any, any, any, { limit: string, offset: string }>('/:id/followings', isLoggedIn, async (req, res, next) => {
     try {
         const user = await User.findOne({
             where: { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0 },
@@ -143,7 +143,7 @@ router.get('/:id/followings', isLoggedIn, async (req, res, next) => {
     }
 });
 
-router.get('/:id/followers', isLoggedIn, async (req, res, next) => {
+router.get<any, any, any, { limit: string, offset: string }>('/:id/followers', isLoggedIn, async (req, res, next) => {
     try {
         const user = await User.findOne({
             where: { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0 },
@@ -240,4 +240,3 @@ router.patch('/nickname', isLoggedIn, async (req, res, next) => {
   });
 
   export default router;
-  

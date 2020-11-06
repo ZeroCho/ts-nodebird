@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { Request } from 'express';
 import * as Sequelize from 'sequelize';
 import Hashtag from '../models/hashtag';
 import Image from '../models/image';
@@ -8,7 +9,7 @@ import User from '../models/user';
 
 const router = express.Router();
 
-router.get('/:tag', async (req, res, next) => {
+router.get('/:tag', async (req: Request<any, any, any, { lastId: string, limit: string }>, res, next) => {
   try {
     let where = {};
     if (parseInt(req.query.lastId, 10)) {
