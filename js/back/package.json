@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.786.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
