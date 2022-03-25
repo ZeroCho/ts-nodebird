@@ -1,13 +1,13 @@
-import * as passport from 'passport';
+import passport from 'passport';
 import User from '../models/user';
 import local from './local';
 
 export default () => {
-  passport.serializeUser<User, number>((user, done) => {
+  passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
-  passport.deserializeUser<User, number>(async (id, done) => {
+  passport.deserializeUser<number>(async (id, done) => {
     try {
       const user = await User.findOne({
         where: { id },

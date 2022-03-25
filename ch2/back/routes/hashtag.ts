@@ -44,7 +44,8 @@ router.get<any, any, any, { lastId: string, limit: string }>('/:tag', async (req
       }],
       order: [['createdAt', 'DESC']],
       limit: parseInt(req.query.limit, 10),
-    })
+    });
+    res.json(posts);
   } catch (err) {
     console.error(err);
     return next(err);

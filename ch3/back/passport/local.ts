@@ -1,5 +1,5 @@
-import * as passport from 'passport';
-import * as bcrypt from 'bcrypt';
+import passport from 'passport';
+import bcrypt from 'bcrypt';
 import { Strategy } from 'passport-local';
 import User from '../models/user';
 

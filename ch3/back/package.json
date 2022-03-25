@@ -21,9 +21,9 @@
     "@types/morgan": "^1.9.2",
     "@types/multer": "^1.4.4",
     "@types/multer-s3": "^2.7.8",
-    "@types/node": "^14.14.6",
-    "@types/passport": "^1.0.4",
-    "@types/passport-local": "^1.0.33",
+    "@types/node": "^16.11.26",
+    "@types/passport": "^1.0.7",
+    "@types/passport-local": "^1.0.34",
     "aws-sdk": "^2.786.0",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
@@ -37,7 +37,7 @@
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
     "mysql2": "^2.2.5",
-    "passport": "^0.4.1",
+    "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
@@ -45,6 +45,6 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.6",
-    "ts-node": "^9.0.0"
+    "ts-node": "^9.1.1"
   }
 }

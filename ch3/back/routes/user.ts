@@ -11,7 +11,7 @@ import Image from '../models/image';
 const router = express.Router();
 
 router.get('/', isLoggedIn, (req, res) => {
-    const user = req.user!.toJSON() as User;
+    const user = req.user;
     return res.json({ ...user, password: null });
 });
 

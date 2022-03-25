@@ -1,4 +1,4 @@
 {
-    "exec": "ts-node index.ts",
+    "exec": "npx ts-node index.ts",
     "ext": "js json ts"
 }
