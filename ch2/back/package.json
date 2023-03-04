@@ -41,7 +41,7 @@
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.22.3",
+    "sequelize": "^6.29.0",
     "sequelize-cli": "^5.5.1",
     "typescript": "^4.0.5"
   },
