@@ -24,7 +24,7 @@
     "@types/node": "^16.11.26",
     "@types/passport": "^1.0.7",
     "@types/passport-local": "^1.0.34",
-    "aws-sdk": "^2.786.0",
+    "aws-sdk": "^2.1354.0",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
